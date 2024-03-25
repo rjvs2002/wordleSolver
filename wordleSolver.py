@@ -1,42 +1,33 @@
 #Imports
-import numpy as np
-
-
-#Load word bank
-def loadWordBank():
-    f = open('wordBank.txt', r)
-
-    lines = f.readlines()
-    
-    for line in lines:
-        print(line)
-
-    f.close()
-
-
-
-
-
-
-#Selects random word from word bank
-
-
+import random
+from gameManager import gameManager
 
 
 
 
 #Solver alogrithm
+def solver():
 
+    
+
+
+    pass
 
 
 
 #Driver function
 if __name__ == '__main__':
-    loadWordBank()
+    
+    game = gameManager()
+
+    game.guess("adieu")
+    game.guess("prank")
+    game.guess("solid")
+    solver()
+    
 
 
 
-
-    pass
+  
 
 
