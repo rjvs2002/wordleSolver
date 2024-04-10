@@ -56,14 +56,45 @@ class board():
 class keys():
 
     def __init__(self) -> None:
-        ['q','w','e','r','t','y','u','i','o','p']
-        ['a','s','d','f','g','h','j','k','l']
-        ['z','x','c','v','b','n','m']
+        self.topRow = ['q','w','e','r','t','y','u','i','o','p']
+        self.midRow = ['a','s','d','f','g','h','j','k','l']
+        self.bottomRow = ['z','x','c','v','b','n','m']
+
+        self.rows = [self.topRow,self.midRow,self.bottomRow]
+
+
+        self.keyBoard = {}
+
+        for row in self.rows: 
+            for letter in row:
+                self.keyBoard[letter] = cell()
+                self.keyBoard[letter].content = letter
+
+
+    def updateKey(self,keyIn,input):
+        match input:
+            case "incorrectLetter":
+                self.keyBoard[keyIn].incorrectLetter = True
+            case "correctLetter":
+                self.keyBoard[keyIn].correctLetter = True
+            case "correctSpot":
+             self.keyBoard[keyIn].correctSpot = True
+
         
-        pass
+        
 
 
 
+
+    def __str__(self):
+        print("_________________________________")
+
+        for row in self.rows:
+            for letter in row:
+                print (self.keyBoard[letter], end='')
+            print("")
+
+        return "_________________________________"
 
 class gameManager():
     
@@ -92,10 +123,16 @@ class gameManager():
         #Initialize board
         self.boardObject = board()
         self.grid = self.boardObject.grid
-       
+
+        #Initalize keys
+        self.keyBoard = keys()
+        print(self.keyBoard)
+
+
+    #Take a guess   
     def guess(self, guessIn):
         
-        
+        #Iterate through cells
         for i in range(5):
 
             #Update letter in cell
@@ -104,22 +141,22 @@ class gameManager():
             #Check if in correct spot
             if guessIn[i] == self.selectedWord[i]:
                 self.grid[self.guessCount][i].correctSpot = True
-
+                self.keyBoard.updateKey(guessIn[i], "correctSpot" )
+                
             elif self.correctLetter(guessIn[i]):
                 self.grid[self.guessCount][i].correctLetter = True
+                self.keyBoard.updateKey(guessIn[i], "correctLetter" )
+           
 
             else:
                 self.grid[self.guessCount][i].incorrectLetter = True
-
+                self.keyBoard.updateKey(guessIn[i], "incorrectLetter" )
+      
         self.guessCount += 1
 
 
         self.boardObject.printer()
-
-      
-                        
-
-
+        print(self.keyBoard)
 
 
     #Check if a correct letter
