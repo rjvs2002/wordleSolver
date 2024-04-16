@@ -43,15 +43,13 @@ class board():
             for col in range (self.columns):
                 self.grid[row][col] = cell()
     
-
-    def printer(self):
-        
+    def __str__(self):
         for row in  range (self.rows):
-            for col in  range (self.columns):
-                print (self.grid[row][col], end='')
-            print("")
+                    for col in  range (self.columns):
+                        print (self.grid[row][col], end='')
+                    print("")
 
-
+        return ("")
 
 class keys():
 
@@ -75,16 +73,16 @@ class keys():
         match input:
             case "incorrectLetter":
                 self.keyBoard[keyIn].incorrectLetter = True
+                self.keyBoard[keyIn].correctLetter = False
+                self.keyBoard[keyIn].correctSpot = False
             case "correctLetter":
                 self.keyBoard[keyIn].correctLetter = True
+                self.keyBoard[keyIn].correctSpot = False
+                self.keyBoard[keyIn].incorrectLetter = False
             case "correctSpot":
-             self.keyBoard[keyIn].correctSpot = True
-
-        
-        
-
-
-
+                self.keyBoard[keyIn].correctSpot = True
+                self.keyBoard[keyIn].correctLetter = False
+                self.keyBoard[keyIn].incorrectLetter = False
 
     def __str__(self):
         print("_________________________________")
@@ -98,23 +96,12 @@ class keys():
 
 class gameManager():
     
-    def __init__(self) -> None:
+    def __init__(self,wordBank) -> None:
 
         self.guessCount = 0
         
         #Initalize list
-        self.wordBank = []
-
-        #Open file
-        f = open('wordBank.txt', 'r')
-        lines = f.readlines()
-
-        #Iterate through lines
-        for line in lines:
-            self.wordBank.append(line.strip("\n"))
-            
-        #Close file
-        f.close()
+        self.wordBank = wordBank
 
         #Select word
         self.selectedWord = random.choice(self.wordBank)
@@ -132,6 +119,8 @@ class gameManager():
     #Take a guess   
     def guess(self, guessIn):
         
+        
+
         #Iterate through cells
         for i in range(5):
 
@@ -155,8 +144,25 @@ class gameManager():
         self.guessCount += 1
 
 
-        self.boardObject.printer()
+        #self.boardObject.printer()
+        print(self.boardObject)
         print(self.keyBoard)
+
+
+    def getKeys(self):
+        return self.keyBoard.keyBoard
+
+
+    def reset(self):
+        #Initialize board
+        self.boardObject = board()
+        self.grid = self.boardObject.grid
+
+        #Initalize keys
+        self.keyBoard = keys()
+
+        #Reset guessCount
+        self.guessCount = 0
 
 
     #Check if a correct letter
