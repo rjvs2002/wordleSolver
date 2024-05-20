@@ -3,8 +3,6 @@ import random
 import copy
 from gameManager import gameManager
 
-
-#TODO implement deepcopy 
 class wordleSolver:
     
     def __init__(self) -> None:
@@ -29,7 +27,6 @@ class wordleSolver:
         
         self.possibleWords = self.wordBank
 
-
         for i in range(0,5):
             guess = random.choice(self.possibleWords)
             self.game.guess(guess)
@@ -37,7 +34,7 @@ class wordleSolver:
             print(len(self.possibleWords))
 
 
-        
+
 
     def naiveApproachHelper(self, guess):
         # Declarations
@@ -50,12 +47,6 @@ class wordleSolver:
             key = dictonary.get(letter)
             removedWords = []
 
-
-      
-
-
-
-
             if key.incorrectLetter:
                 for word in possibleWords:
                     if letter in word:
@@ -63,9 +54,10 @@ class wordleSolver:
 
                 print("New length:", len(self.possibleWords))
             
+       
             if key.correctLetter:
                 for word in possibleWords:
-                    if letter not in word or guess[letterIndex] != word[letterIndex]:
+                    if letter not in word:
                         removedWords.append(word)
 
                 print("New length:", len(self.possibleWords))
@@ -81,20 +73,10 @@ class wordleSolver:
 
             # Remove words from self.possibleWords
             for word in removedWords:
-                self.possibleWords.remove(word)
-    
-
- 
-
-
-        
-
-                
-
-
-
-
-
+                if (word not in self.possibleWords):
+                    continue
+                else:
+                   self.possibleWords.remove(word)
 
 #Driver function
 if __name__ == '__main__':
