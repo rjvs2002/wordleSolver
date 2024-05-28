@@ -33,9 +33,6 @@ class wordleSolver:
             self.naiveApproachHelper(guess)
             print(len(self.possibleWords))
 
-
-
-
     def naiveApproachHelper(self, guess):
         # Declarations
         letterIndex = 0
@@ -51,20 +48,18 @@ class wordleSolver:
                 for word in possibleWords:
                     if letter in word:
                         removedWords.append(word)
-
                 print("New length:", len(self.possibleWords))
             
-       
             if key.correctLetter:
                 for word in possibleWords:
-                    if letter not in word:
+                    if letter not in word or guess[letterIndex] == word[letterIndex]:
                         removedWords.append(word)
 
                 print("New length:", len(self.possibleWords))
 
             if key.correctSpot:
                 for word in possibleWords:
-                    if guess[letterIndex] != word[letterIndex]:
+                    if guess[letterIndex] != word[letterIndex] or letter not in word:
                         removedWords.append(word)
 
                 print("New length:", len(self.possibleWords))

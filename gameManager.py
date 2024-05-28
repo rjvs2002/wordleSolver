@@ -119,8 +119,6 @@ class gameManager():
     #Take a guess   
     def guess(self, guessIn):
         
-        
-
         #Iterate through cells
         for i in range(5):
 
@@ -142,7 +140,6 @@ class gameManager():
                 self.keyBoard.updateKey(guessIn[i], "incorrectLetter" )
       
         self.guessCount += 1
-
 
         #self.boardObject.printer()
         print(self.boardObject)
